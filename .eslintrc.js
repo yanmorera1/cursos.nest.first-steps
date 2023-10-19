@@ -25,6 +25,7 @@ module.exports = {
       'error',
       {
         semi: false,
+        endOfLine: 'auto',
       },
     ],
   },
