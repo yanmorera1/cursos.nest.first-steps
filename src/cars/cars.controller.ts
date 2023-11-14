@@ -11,12 +11,19 @@ import {
 import { CarsService } from './cars.service'
 import { CreateCarDto } from './dto/create-car.dto'
 import { UpdateCarDto } from './dto/update-car.dto'
+import { ApiResponse, ApiTags } from '@nestjs/swagger'
+import { Car } from './interfaces/car.interface'
 
 @Controller('cars')
+@ApiTags('cars')
 export class CarsController {
   constructor(private readonly carsService: CarsService) {}
   @Get()
-  getAllCars() {
+  @ApiResponse({
+    status: 200,
+    description: 'The found record',
+  })
+  getAllCars(): Car[] {
     return this.carsService.findAll()
   }
 
@@ -26,6 +33,10 @@ export class CarsController {
   }
 
   @Post()
+  @ApiResponse({
+    status: 201,
+    description: 'The created car',
+  })
   createCar(@Body() createCarDto: CreateCarDto) {
     return this.carsService.create(createCarDto)
   }
